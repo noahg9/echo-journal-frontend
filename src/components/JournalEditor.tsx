@@ -30,7 +30,7 @@ export const JournalEditor = () => {
             toast({
                 title: "Empty entry",
                 description: "Write something before saving your journal entry.",
-                variant: "destructive"
+                variant: "destructive",
             });
             return;
         }
@@ -38,19 +38,28 @@ export const JournalEditor = () => {
         try {
             const response = await fetch("http://localhost:8000/entry", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ text: entry })
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ text: entry }),
             });
 
             if (!response.ok) {
                 throw new Error("Failed to save entry");
             }
 
+            // Create a new entry object (without AI summary, mood, theme)
+            const newEntry = {
+                id: Date.now().toString(),
+                content: entry,
+                date: new Date().toISOString(),
+            };
+
+            // Save it into localStorage so PastEntries can pick it up
+            const savedEntries = JSON.parse(localStorage.getItem("journal-entries") || "[]");
+            localStorage.setItem("journal-entries", JSON.stringify([...savedEntries, newEntry]));
+
             toast({
                 title: "Entry saved!",
-                description: "Your thoughts have been captured."
+                description: "Your thoughts have been captured.",
             });
 
             setEntry("");
@@ -59,10 +68,11 @@ export const JournalEditor = () => {
             toast({
                 title: "Error",
                 description: (error as Error).message || "Something went wrong",
-                variant: "destructive"
+                variant: "destructive",
             });
         }
     };
+
 
     return (
         <div className="space-y-6">
