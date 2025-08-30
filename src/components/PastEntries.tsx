@@ -12,13 +12,42 @@ interface JournalEntry {
     summary?: string;
 }
 
+// Hardcoded entries with long content
+const HARDCODED_ENTRIES: JournalEntry[] = [
+    {
+        id: "1",
+        content: `Today I went for a long walk in the park. The weather was perfect, the sun was shining,
+and I could feel the gentle breeze on my face. I saw families having picnics, children playing,
+and dogs running around happily. It made me reflect on how simple joys can really uplift your mood.
+I also listened to a podcast about productivity and took some notes on how to better manage my time.
+I felt very inspired and decided to start planning my week more efficiently. Later in the evening,
+I cooked a healthy dinner and enjoyed it while reading a book. Overall, it was a very fulfilling day.`,
+        date: "2025-08-29",
+        mood: "Happy",
+        theme: "Nature & Reflection",
+        summary: "A long walk in nature lifted my spirits and inspired productivity."
+    },
+    {
+        id: "2",
+        content: `Read a book about AI, focusing on the latest trends in machine learning and natural language processing.
+The chapters covered various algorithms, their use cases, and ethical considerations. I spent hours taking notes
+and trying out some code examples to solidify my understanding. Later, I wrote a small blog post summarizing
+what I learned and shared it with a friend who is also interested in AI. By the end of the day, I felt that I
+had gained valuable knowledge that I could apply in my projects.`,
+        date: "2025-08-28",
+        mood: "Curious",
+        theme: "Learning & Growth",
+        summary: "Deep dive into AI concepts gave me practical insights for my projects."
+    }
+];
+
 export const PastEntries = () => {
     const [entries, setEntries] = useState<JournalEntry[]>([]);
     const [expandedEntryId, setExpandedEntryId] = useState<string | null>(null);
 
     useEffect(() => {
         const savedEntries = JSON.parse(localStorage.getItem('journal-entries') || '[]');
-        setEntries(savedEntries);
+        setEntries([...HARDCODED_ENTRIES, ...savedEntries]);
     }, []);
 
     const formatDate = (dateString: string) => {
@@ -28,6 +57,12 @@ export const PastEntries = () => {
             month: 'short',
             day: 'numeric'
         });
+    };
+
+    const addEntry = (newEntry: JournalEntry) => {
+        setEntries(prev => [...prev, newEntry]);
+        const savedEntries = JSON.parse(localStorage.getItem('journal-entries') || '[]');
+        localStorage.setItem('journal-entries', JSON.stringify([...savedEntries, newEntry]));
     };
 
     return (
@@ -58,35 +93,30 @@ export const PastEntries = () => {
                                 onClick={() => setExpandedEntryId(isExpanded ? null : entry.id)}
                             >
                                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium text-primary">
-                    {formatDate(entry.date)}
-                  </span>
+                                    <span className="text-sm font-medium text-primary">
+                                        {formatDate(entry.date)}
+                                    </span>
                                 </div>
 
-                                {/* Default view: mood + theme */}
-                                {!isExpanded && (
+                                {/* Preview: mood + theme + AI summary */}
+                                <div className="flex flex-col gap-2">
                                     <div className="flex flex-wrap gap-2">
-                                        {entry.mood && (
-                                            <Badge variant="outline">{entry.mood}</Badge>
-                                        )}
-                                        {entry.theme && (
-                                            <Badge variant="secondary">{entry.theme}</Badge>
-                                        )}
+                                        {entry.mood && <Badge variant="outline">{entry.mood}</Badge>}
+                                        {entry.theme && <Badge variant="secondary">{entry.theme}</Badge>}
                                     </div>
-                                )}
+                                    {entry.summary && (
+                                        <p className="text-muted-foreground text-sm line-clamp-2">
+                                            {entry.summary}
+                                        </p>
+                                    )}
+                                </div>
 
-                                {/* Expanded view: full content + AI summary */}
+                                {/* Expanded view: full content */}
                                 {isExpanded && (
                                     <div className="mt-2 pt-2 border-t border-border space-y-3">
                                         <p className="text-foreground whitespace-pre-wrap leading-relaxed">
                                             {entry.content}
                                         </p>
-                                        {entry.summary && (
-                                            <div className="mt-2 p-3 bg-muted/30 rounded-lg">
-                                                <h4 className="font-medium text-foreground mb-2">AI Summary</h4>
-                                                <p className="text-muted-foreground text-sm">{entry.summary}</p>
-                                            </div>
-                                        )}
                                     </div>
                                 )}
                             </Card>
