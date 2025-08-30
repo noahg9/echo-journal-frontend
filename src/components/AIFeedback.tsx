@@ -5,19 +5,11 @@ import { Brain, TrendingUp, Heart } from "lucide-react";
 interface DaySummary {
   mood: string;
   theme: string;
-  insights: string[];
-  encouragement: string;
 }
 
 const MOCK_SUMMARY: DaySummary = {
   mood: "reflective",
-  theme: "Growth & Learning",
-  insights: [
-    "You showed resilience when facing challenges today",
-    "Multiple mentions of gratitude and appreciation",
-    "Strong focus on personal development"
-  ],
-  encouragement: "Your mindful approach to challenges shows real emotional growth. Keep nurturing this reflective mindset!"
+  theme: "Growth & Learning"
 };
 
 export const AIFeedback = () => {
@@ -51,25 +43,6 @@ export const AIFeedback = () => {
               </Badge>
             </div>
           </div>
-        </Card>
-
-        <Card className="p-6">
-          <h3 className="font-semibold text-foreground mb-4">Key Insights</h3>
-          <div className="space-y-3">
-            {MOCK_SUMMARY.insights.map((insight, index) => (
-              <div key={index} className="flex items-start gap-3 p-3 bg-muted/50 rounded-lg">
-                <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0" />
-                <p className="text-muted-foreground">{insight}</p>
-              </div>
-            ))}
-          </div>
-        </Card>
-
-        <Card className="p-6 bg-gradient-to-br from-primary/5 to-accent/5 border-primary/20">
-          <h3 className="font-semibold text-foreground mb-3">Encouragement</h3>
-          <p className="text-foreground/80 italic leading-relaxed">
-            "{MOCK_SUMMARY.encouragement}"
-          </p>
         </Card>
       </div>
     </div>

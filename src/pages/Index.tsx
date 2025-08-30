@@ -3,49 +3,34 @@ import { WeeklyOverview } from "@/components/WeeklyOverview";
 import { JournalEditor } from "@/components/JournalEditor";
 import { AIFeedback } from "@/components/AIFeedback";
 import { PastEntries } from "@/components/PastEntries";
-import { MoodTracker } from "@/components/MoodTracker";
 
 const Index = () => {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/5">
-      <Header />
-      
-      <main className="max-w-6xl mx-auto px-4 py-8">
-        <div className="space-y-12">
-          {/* Weekly Overview Section */}
-          <section>
-            <WeeklyOverview />
-          </section>
+    return (
+        <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/5">
+            <Header />
 
-          {/* Main Content Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Left Column - Journal Editor */}
-            <div className="lg:col-span-2">
-              <JournalEditor />
-            </div>
+            <main className="max-w-6xl mx-auto px-4 py-8 space-y-12">
+                {/* Weekly Overview Section */}
+                <section>
+                    <WeeklyOverview />
+                </section>
 
-            {/* Right Column - AI Feedback */}
-            <div className="lg:col-span-1">
-              <AIFeedback />
-            </div>
-          </div>
+                {/* Main Grid: Left (Journal + Daily Insights) & Right (Past Entries) */}
+                <section className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    {/* Left Column - Journal + Daily Insights */}
+                    <div className="flex flex-col gap-8">
+                        <JournalEditor />
+                        <AIFeedback />
+                    </div>
 
-          {/* Bottom Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Past Entries */}
-            <div>
-              <PastEntries />
-            </div>
-
-            {/* Mood Tracker */}
-            <div>
-              <MoodTracker />
-            </div>
-          </div>
+                    {/* Right Column - Past Entries */}
+                    <div>
+                        <PastEntries />
+                    </div>
+                </section>
+            </main>
         </div>
-      </main>
-    </div>
-  );
+    );
 };
 
 export default Index;
