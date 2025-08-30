@@ -1,12 +1,49 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Header } from "@/components/Header";
+import { WeeklyOverview } from "@/components/WeeklyOverview";
+import { JournalEditor } from "@/components/JournalEditor";
+import { AIFeedback } from "@/components/AIFeedback";
+import { PastEntries } from "@/components/PastEntries";
+import { MoodTracker } from "@/components/MoodTracker";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/5">
+      <Header />
+      
+      <main className="max-w-6xl mx-auto px-4 py-8">
+        <div className="space-y-12">
+          {/* Weekly Overview Section */}
+          <section>
+            <WeeklyOverview />
+          </section>
+
+          {/* Main Content Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Left Column - Journal Editor */}
+            <div className="lg:col-span-2">
+              <JournalEditor />
+            </div>
+
+            {/* Right Column - AI Feedback */}
+            <div className="lg:col-span-1">
+              <AIFeedback />
+            </div>
+          </div>
+
+          {/* Bottom Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Past Entries */}
+            <div>
+              <PastEntries />
+            </div>
+
+            {/* Mood Tracker */}
+            <div>
+              <MoodTracker />
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   );
 };

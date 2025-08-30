@@ -52,6 +52,15 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				theme: {
+					adventurous: 'hsl(var(--theme-adventurous))',
+					courageous: 'hsl(var(--theme-courageous))',
+					reflective: 'hsl(var(--theme-reflective))',
+					creative: 'hsl(var(--theme-creative))',
+					peaceful: 'hsl(var(--theme-peaceful))',
+					growth: 'hsl(var(--theme-growth))',
+					grateful: 'hsl(var(--theme-grateful))'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
