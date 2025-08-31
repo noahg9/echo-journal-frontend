@@ -48,22 +48,6 @@ export const PastEntries = () => {
         });
     };
 
-    // Add a new entry and immediately merge with hardcoded entries
-    const addEntry = (content: string) => {
-        const newEntry: JournalEntry = {
-            id: Date.now().toString(),
-            content,
-            date: new Date().toISOString(),
-        };
-
-        // Update state immediately
-        setEntries(prev => [...prev, newEntry]);
-
-        // Save only user-added entries (not hardcoded) to localStorage
-        const savedEntries = JSON.parse(localStorage.getItem("journal-entries") || "[]");
-        localStorage.setItem("journal-entries", JSON.stringify([...savedEntries, newEntry]));
-    };
-
     return (
         <div className="space-y-6">
             <div className="flex items-center gap-2">
@@ -106,16 +90,6 @@ export const PastEntries = () => {
                     })}
                 </div>
             )}
-
-            {/* Button to add a new entry */}
-            <div className="mt-4">
-                <button
-                    className="px-4 py-2 bg-primary text-white rounded"
-                    onClick={() => addEntry("This is a newly added journal entry.")}
-                >
-                    Add New Entry
-                </button>
-            </div>
         </div>
     );
 };
