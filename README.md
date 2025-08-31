@@ -1,5 +1,7 @@
 # Echo Journal - Frontend
 
+This project was built as part of a hackathon, showcasing a quick prototype of how AI can enhance journaling and reflection.
+
 Echo Journal is a journaling app designed to make reflection motivating, rewarding, and insightful.
 Inspired by BeReal, it introduces an unlock system: each time you write, you unlock an anonymous entry from someone else in the world.
 
